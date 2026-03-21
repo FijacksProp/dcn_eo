@@ -1,0 +1,288 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+:root {
+  /* Memorial Design: Dark theme with soft gold accents */
+  --primary: #d4a574;
+  --primary-foreground: #0f0f0f;
+  --sidebar-primary: #d4a574;
+  --sidebar-primary-foreground: #0f0f0f;
+  --chart-1: #d4a574;
+  --chart-2: #c9a961;
+  --chart-3: #b8985a;
+  --chart-4: #a78853;
+  --chart-5: #96784c;
+  --radius: 0.5rem;
+  
+  /* Dark background with warm undertone */
+  --background: #0f0f0f;
+  --foreground: #f5f1e8;
+  --card: #1a1a1a;
+  --card-foreground: #f5f1e8;
+  --popover: #1a1a1a;
+  --popover-foreground: #f5f1e8;
+  
+  /* Muted tones for secondary elements */
+  --secondary: #2a2a2a;
+  --secondary-foreground: #d4a574;
+  --muted: #3a3a3a;
+  --muted-foreground: #a89968;
+  
+  /* Accent is soft gold */
+  --accent: #d4a574;
+  --accent-foreground: #0f0f0f;
+  
+  /* Destructive remains standard */
+  --destructive: #dc2626;
+  --destructive-foreground: #f5f1e8;
+  
+  /* Borders with gold tint */
+  --border: #d4a574;
+  --input: #2a2a2a;
+  --ring: #d4a574;
+  
+  /* Sidebar styling */
+  --sidebar: #1a1a1a;
+  --sidebar-foreground: #f5f1e8;
+  --sidebar-accent: #d4a574;
+  --sidebar-accent-foreground: #0f0f0f;
+  --sidebar-border: #d4a574;
+  --sidebar-ring: #d4a574;
+}
+
+.dark {
+  /* Already set for dark theme */
+  --primary: #d4a574;
+  --primary-foreground: #0f0f0f;
+  --sidebar-primary: #d4a574;
+  --sidebar-primary-foreground: #0f0f0f;
+  --background: #0f0f0f;
+  --foreground: #f5f1e8;
+  --card: #1a1a1a;
+  --card-foreground: #f5f1e8;
+  --popover: #1a1a1a;
+  --popover-foreground: #f5f1e8;
+  --secondary: #2a2a2a;
+  --secondary-foreground: #d4a574;
+  --muted: #3a3a3a;
+  --muted-foreground: #a89968;
+  --accent: #d4a574;
+  --accent-foreground: #0f0f0f;
+  --destructive: #dc2626;
+  --destructive-foreground: #f5f1e8;
+  --border: #d4a574;
+  --input: #2a2a2a;
+  --ring: #d4a574;
+  --chart-1: #d4a574;
+  --chart-2: #c9a961;
+  --chart-3: #b8985a;
+  --chart-4: #a78853;
+  --chart-5: #96784c;
+  --sidebar: #1a1a1a;
+  --sidebar-foreground: #f5f1e8;
+  --sidebar-accent: #d4a574;
+  --sidebar-accent-foreground: #0f0f0f;
+  --sidebar-border: #d4a574;
+  --sidebar-ring: #d4a574;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Inter', sans-serif;
+  }
+  
+  /* Serif headings for elegance */
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Playfair Display', serif;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+  }
+  
+  h1 {
+    @apply text-5xl md:text-6xl lg:text-7xl;
+    letter-spacing: 0.02em;
+  }
+  
+  h2 {
+    @apply text-4xl md:text-5xl;
+    letter-spacing: 0.03em;
+  }
+  
+  h3 {
+    @apply text-3xl md:text-4xl;
+    letter-spacing: 0.03em;
+  }
+  
+  h4 {
+    @apply text-2xl md:text-3xl;
+  }
+  
+  p {
+    @apply text-base md:text-lg;
+    line-height: 1.8;
+    letter-spacing: 0.3px;
+  }
+  
+  button:not(:disabled),
+  [role="button"]:not([aria-disabled="true"]),
+  [type="button"]:not(:disabled),
+  [type="submit"]:not(:disabled),
+  [type="reset"]:not(:disabled),
+  a[href],
+  select:not(:disabled),
+  input[type="checkbox"]:not(:disabled),
+  input[type="radio"]:not(:disabled) {
+    @apply cursor-pointer;
+  }
+}
+
+@layer components {
+  /**
+   * Custom container utility that centers content and adds responsive padding.
+   * Memorial design: generous padding and max-width for contemplative reading
+   */
+  .container {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+
+  .flex {
+    min-height: 0;
+    min-width: 0;
+  }
+
+  @media (min-width: 640px) {
+    .container {
+      padding-left: 2rem;
+      padding-right: 2rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .container {
+      padding-left: 3rem;
+      padding-right: 3rem;
+      max-width: 1200px;
+    }
+  }
+
+  /* Gold divider line */
+  .divider-gold {
+    @apply h-px bg-accent opacity-20;
+  }
+
+  /* Soft glow effect for images */
+  .glow-soft {
+    box-shadow: 0 0 60px rgba(212, 165, 116, 0.15), 
+                0 0 120px rgba(212, 165, 116, 0.08);
+  }
+
+  /* Subtle grain texture overlay */
+  .grain {
+    background-image: 
+      url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' seed='2' /%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
+  }
+
+  /* Fade-in animation for sections */
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .fade-in-up {
+    animation: fadeInUp 0.8s ease-out forwards;
+  }
+
+  /* Scroll indicator pulse */
+  @keyframes pulse-soft {
+    0%, 100% {
+      opacity: 0.6;
+    }
+    50% {
+      opacity: 1;
+    }
+  }
+
+  .pulse-soft {
+    animation: pulse-soft 2s ease-in-out infinite;
+  }
+
+  /* Gold hover effect */
+  .hover-gold {
+    @apply transition-all duration-300 ease-out;
+  }
+
+  .hover-gold:hover {
+    @apply text-accent;
+  }
+
+  /* Card styling with subtle border */
+  .card-memorial {
+    @apply bg-card text-card-foreground rounded-lg p-6 md:p-8 border border-accent/15 transition-all duration-300 ease-out;
+  }
+
+  .card-memorial:hover {
+    @apply border-accent/25 shadow-lg;
+    box-shadow: 0 10px 30px rgba(212, 165, 116, 0.1);
+  }
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}

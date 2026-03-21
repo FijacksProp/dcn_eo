@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+    <title>Dcn. Olugbenga Eyitayo Olugbemi Memorial</title>
+    
+    <!-- Google Fonts: Playfair Display (serif) for headings, Inter (sans-serif) for body -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  </head>
+
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+    <script type="module">
+      const analyticsEndpoint = "%VITE_ANALYTICS_ENDPOINT%";
+      const analyticsWebsiteId = "%VITE_ANALYTICS_WEBSITE_ID%";
+      const hasAnalyticsConfig =
+        analyticsEndpoint &&
+        analyticsWebsiteId &&
+        !analyticsEndpoint.startsWith("%VITE_") &&
+        !analyticsWebsiteId.startsWith("%VITE_");
+
+      if (hasAnalyticsConfig) {
+        const analyticsScript = document.createElement("script");
+        analyticsScript.defer = true;
+        analyticsScript.src = `${analyticsEndpoint}/umami`;
+        analyticsScript.dataset.websiteId = analyticsWebsiteId;
+        document.body.appendChild(analyticsScript);
+      }
+    </script>
+  </body>
+
+</html>
