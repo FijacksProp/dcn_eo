@@ -3,15 +3,16 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import NotFound from "@/pages/NotFound";
 import { Route, Switch } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
-import { ThemeProvider } from "./contexts/ThemeContext";
-import Home from "./pages/Home";
-import Biography from "./pages/Biography";
-import Tributes from "./pages/Tributes";
-import Gallery from "./pages/Gallery";
-import ServiceDetails from "./pages/ServiceDetails";
-import Legacy from "./pages/Legacy";
-import FamilyMessage from "./pages/FamilyMessage";
 import Layout from "./components/Layout";
+import { MemorialContentProvider } from "./contexts/MemorialContentContext";
+import { ThemeProvider } from "./contexts/ThemeContext";
+import Biography from "./pages/Biography";
+import FamilyMessage from "./pages/FamilyMessage";
+import Gallery from "./pages/Gallery";
+import Home from "./pages/Home";
+import Legacy from "./pages/Legacy";
+import ServiceDetails from "./pages/ServiceDetails";
+import Tributes from "./pages/Tributes";
 
 function Router() {
   return (
@@ -24,7 +25,6 @@ function Router() {
       <Route path={"/legacy"} component={Legacy} />
       <Route path={"/family-message"} component={FamilyMessage} />
       <Route path={"/404"} component={NotFound} />
-      {/* Final fallback route */}
       <Route component={NotFound} />
     </Switch>
   );
@@ -34,12 +34,14 @@ function App() {
   return (
     <ErrorBoundary>
       <ThemeProvider defaultTheme="dark">
-        <TooltipProvider>
-          <Toaster />
-          <Layout>
-            <Router />
-          </Layout>
-        </TooltipProvider>
+        <MemorialContentProvider>
+          <TooltipProvider>
+            <Toaster />
+            <Layout>
+              <Router />
+            </Layout>
+          </TooltipProvider>
+        </MemorialContentProvider>
       </ThemeProvider>
     </ErrorBoundary>
   );
