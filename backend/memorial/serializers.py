@@ -1,0 +1,91 @@
+from rest_framework import serializers
+
+from .models import (
+    BiographySection,
+    FamilyMessage,
+    GalleryImage,
+    LegacyValue,
+    MemorialProfile,
+    ServiceEvent,
+    Tribute,
+)
+
+
+class BiographySectionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = BiographySection
+        fields = ["id", "title", "body", "order"]
+
+
+class ServiceEventSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ServiceEvent
+        fields = [
+            "id",
+            "title",
+            "event_type",
+            "start_at",
+            "venue_name",
+            "venue_address",
+            "description",
+            "order",
+        ]
+
+
+class LegacyValueSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = LegacyValue
+        fields = ["id", "title", "description", "icon_name", "order"]
+
+
+class FamilyMessageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = FamilyMessage
+        fields = ["title", "body", "signature"]
+
+
+class GalleryImageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = GalleryImage
+        fields = ["id", "title", "alt_text", "category", "image_url", "caption", "order"]
+
+
+class TributeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Tribute
+        fields = ["id", "name", "relationship", "message", "created_at"]
+
+
+class MemorialProfileSerializer(serializers.ModelSerializer):
+    biography_sections = BiographySectionSerializer(many=True, read_only=True)
+    service_events = ServiceEventSerializer(many=True, read_only=True)
+    legacy_values = LegacyValueSerializer(many=True, read_only=True)
+    family_message = FamilyMessageSerializer(read_only=True)
+    gallery_images = GalleryImageSerializer(many=True, read_only=True)
+    tributes = serializers.SerializerMethodField()
+
+    class Meta:
+        model = MemorialProfile
+        fields = [
+            "id",
+            "full_name",
+            "honorific",
+            "birth_date",
+            "death_date",
+            "hero_title",
+            "hero_quote",
+            "hero_summary",
+            "footer_note",
+            "portrait_image_url",
+            "background_audio_url",
+            "biography_sections",
+            "service_events",
+            "legacy_values",
+            "family_message",
+            "gallery_images",
+            "tributes",
+        ]
+
+    def get_tributes(self, obj):
+        tributes = obj.tributes.filter(is_approved=True)
+        return TributeSerializer(tributes, many=True).data
