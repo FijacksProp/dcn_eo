@@ -39,15 +39,25 @@ export default function Tributes() {
   }
 
   return (
-    <div className="min-h-screen py-20 md:py-28">
+    <div className="min-h-screen pb-20 md:pb-28">
       <div className="container max-w-5xl">
-        <h1 className="text-5xl md:text-6xl font-serif font-bold mb-4 text-foreground">Tributes</h1>
-        <div className="divider-gold w-16 mb-12" />
+        <div className="mb-14 md:mb-16 max-w-3xl">
+          <p className="text-[0.7rem] sm:text-xs uppercase tracking-[0.35em] text-accent/85 mb-4">Tributes</p>
+          <h1 className="text-5xl md:text-6xl font-serif font-bold mb-4 text-foreground">Words Shared in His Memory</h1>
+          <div className="divider-gold w-20 mb-6" />
 
-        <p className="text-base md:text-lg text-foreground mb-12 leading-relaxed max-w-3xl">
-          The following are heartfelt messages and condolences from family, friends, and loved ones
-          who have been touched by {memorial.full_name}'s life and legacy.
-        </p>
+          <p className="text-base md:text-lg text-foreground mb-0 leading-relaxed">
+            The following are heartfelt messages and condolences from family, friends, and loved ones
+            who have been touched by {memorial.full_name}'s life and legacy.
+          </p>
+        </div>
+
+        <div className="mb-10 card-memorial bg-card/70">
+          <p className="text-sm md:text-base text-muted-foreground">
+            Public tribute submission is still pending backend connection and moderation flow. The
+            current dialog is only a temporary local placeholder.
+          </p>
+        </div>
 
         <div className="mb-16">
           <Dialog open={isOpen} onOpenChange={setIsOpen}>
@@ -102,8 +112,7 @@ export default function Tributes() {
                   Save Draft Locally
                 </Button>
                 <p className="text-xs text-muted-foreground">
-                  Public tribute submission has not been connected yet. This form currently closes
-                  locally only.
+                  This draft is not sent anywhere yet.
                 </p>
               </form>
             </DialogContent>

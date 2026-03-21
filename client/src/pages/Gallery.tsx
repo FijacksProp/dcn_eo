@@ -29,15 +29,21 @@ export default function Gallery() {
   ];
 
   return (
-    <div className="min-h-screen py-20 md:py-28">
+    <div className="min-h-screen pb-20 md:pb-28">
       <div className="container">
-        <h1 className="text-5xl md:text-6xl font-serif font-bold mb-4 text-foreground">Gallery</h1>
-        <div className="divider-gold w-16 mb-12" />
+        <div className="mb-14 md:mb-16 max-w-3xl">
+          <p className="text-[0.7rem] sm:text-xs uppercase tracking-[0.35em] text-accent/85 mb-4">Gallery</p>
+          <h1 className="text-5xl md:text-6xl font-serif font-bold mb-4 text-foreground">Moments We Continue to Hold Close</h1>
+          <div className="divider-gold w-20 mb-6" />
+          <p className="text-muted-foreground">
+            A visual collection of places, people, and seasons that remain part of his memory.
+          </p>
+        </div>
 
         <div className="mb-12 flex flex-wrap gap-3">
           <button
             onClick={() => setSelectedCategory(null)}
-            className={`px-6 py-2 rounded-lg font-medium transition-all ${
+            className={`px-4 sm:px-6 py-2 rounded-full text-sm font-medium transition-all ${
               selectedCategory === null
                 ? "bg-accent text-accent-foreground"
                 : "bg-card text-foreground border border-accent border-opacity-20 hover:border-opacity-50"
@@ -49,7 +55,7 @@ export default function Gallery() {
             <button
               key={cat.id}
               onClick={() => setSelectedCategory(cat.id)}
-              className={`px-6 py-2 rounded-lg font-medium transition-all ${
+              className={`px-4 sm:px-6 py-2 rounded-full text-sm font-medium transition-all ${
                 selectedCategory === cat.id
                   ? "bg-accent text-accent-foreground"
                   : "bg-card text-foreground border border-accent border-opacity-20 hover:border-opacity-50"
@@ -68,7 +74,7 @@ export default function Gallery() {
               style={{ animationDelay: `${index * 100}ms` }}
               onClick={() => setSelectedImage(image)}
             >
-              <div className="relative overflow-hidden rounded-lg h-64 md:h-72">
+              <div className="relative overflow-hidden rounded-2xl h-64 md:h-72">
                 <img
                   src={image.image_url}
                   alt={image.alt_text}
@@ -93,7 +99,7 @@ export default function Gallery() {
             <div className="relative max-w-4xl w-full" onClick={(e) => e.stopPropagation()}>
               <button
                 onClick={() => setSelectedImage(null)}
-                className="absolute top-4 right-4 p-2 rounded-lg bg-white bg-opacity-10 hover:bg-opacity-20 transition-all"
+                className="absolute top-4 right-4 z-10 p-2 rounded-full bg-white/10 hover:bg-white/20 transition-all"
               >
                 <X className="w-6 h-6 text-white" />
               </button>
@@ -101,7 +107,7 @@ export default function Gallery() {
               <img
                 src={selectedImage.image_url}
                 alt={selectedImage.alt_text}
-                className="w-full h-auto rounded-lg"
+                className="w-full h-auto rounded-2xl"
               />
 
               <div className="mt-6 text-center">

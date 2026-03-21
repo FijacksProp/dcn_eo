@@ -22,15 +22,18 @@ export default function ServiceDetails() {
   }
 
   return (
-    <div className="min-h-screen py-20 md:py-28">
+    <div className="min-h-screen pb-20 md:pb-28">
       <div className="container max-w-4xl">
-        <h1 className="text-5xl md:text-6xl font-serif font-bold mb-4 text-foreground">Service Details</h1>
-        <div className="divider-gold w-16 mb-12" />
+        <div className="mb-14 md:mb-16">
+          <p className="text-[0.7rem] sm:text-xs uppercase tracking-[0.35em] text-accent/85 mb-4">Service Details</p>
+          <h1 className="text-5xl md:text-6xl font-serif font-bold mb-4 text-foreground">Gathering to Honor His Life</h1>
+          <div className="divider-gold w-20 mb-6" />
 
-        <p className="text-base md:text-lg text-foreground mb-16 leading-relaxed">
-          Below are the service arrangements for {memorial.full_name}. We invite family, friends,
-          and loved ones to join us in celebrating his life and honoring his memory.
-        </p>
+          <p className="text-base md:text-lg text-foreground mb-0 leading-relaxed max-w-3xl">
+            Below are the service arrangements for {memorial.full_name}. We invite family, friends,
+            and loved ones to join us in celebrating his life and honoring his memory.
+          </p>
+        </div>
 
         {memorial.service_events.map((event, index) => {
           const HeadingIcon = getEventHeadingIcon(event.event_type);
