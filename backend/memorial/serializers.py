@@ -51,9 +51,11 @@ class GalleryImageSerializer(serializers.ModelSerializer):
 
 
 class TributeSerializer(serializers.ModelSerializer):
+    section_label = serializers.CharField(source="get_section_display", read_only=True)
+
     class Meta:
         model = Tribute
-        fields = ["id", "name", "relationship", "message", "created_at"]
+        fields = ["id", "section", "section_label", "name", "relationship", "message", "order", "created_at"]
 
 
 class MemorialProfileSerializer(serializers.ModelSerializer):

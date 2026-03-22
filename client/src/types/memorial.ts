@@ -42,9 +42,12 @@ export interface GalleryImage {
 
 export interface Tribute {
   id: number;
+  section: "family" | "church" | "friend" | "relative" | "institution" | "community";
+  section_label: string;
   name: string;
   relationship: string;
   message: string;
+  order: number;
   created_at: string;
 }
 

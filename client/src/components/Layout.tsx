@@ -1,6 +1,6 @@
 import { useMemorialContent } from "@/contexts/MemorialContentContext";
-import { Menu, Music, X } from "lucide-react";
-import { useEffect, useState } from "react";
+import { ArrowUp, Menu, Music, X } from "lucide-react";
+import { useEffect, useLayoutEffect, useState } from "react";
 import { Link, useLocation } from "wouter";
 
 interface LayoutProps {
@@ -8,6 +8,7 @@ interface LayoutProps {
 }
 
 const navLinks = [
+  { href: "/", label: "Home" },
   { href: "/biography", label: "Biography" },
   { href: "/tributes", label: "Tributes" },
   { href: "/gallery", label: "Gallery" },
@@ -31,10 +32,12 @@ export default function Layout({ children }: LayoutProps) {
   const [isMusicPlaying, setIsMusicPlaying] = useState(false);
   const [audioElement, setAudioElement] = useState<HTMLAudioElement | null>(null);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [showBackToTop, setShowBackToTop] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 24);
+      setShowBackToTop(window.scrollY > 320);
     };
 
     window.addEventListener("scroll", handleScroll);
@@ -43,6 +46,10 @@ export default function Layout({ children }: LayoutProps) {
 
   useEffect(() => {
     setIsMobileMenuOpen(false);
+  }, [location]);
+
+  useLayoutEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: "auto" });
   }, [location]);
 
   useEffect(() => {
@@ -88,8 +95,14 @@ export default function Layout({ children }: LayoutProps) {
     setIsMusicPlaying(!isMusicPlaying);
   };
 
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+  };
+
   return (
     <div className="min-h-screen flex flex-col bg-background text-foreground grain overflow-x-hidden">
+      <div aria-hidden className="site-particles" />
+      <div aria-hidden className="site-particles site-particles-secondary" />
       <nav
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ease-out ${
           isScrolled || isMobileMenuOpen
@@ -99,7 +112,7 @@ export default function Layout({ children }: LayoutProps) {
       >
         <div className="container flex items-center justify-between gap-3 py-4 md:py-6">
           <Link href="/">
-            <a className="text-base sm:text-xl md:text-2xl lg:text-3xl font-serif font-bold text-accent hover-gold tracking-[0.08em]">
+            <a className="text-sm sm:text-lg md:text-xl lg:text-2xl font-serif italic font-semibold text-accent hover-gold tracking-[0.04em]">
               Dcn. EO Olugbemi
             </a>
           </Link>
@@ -170,6 +183,17 @@ export default function Layout({ children }: LayoutProps) {
       </nav>
 
       <main className={location === "/" ? "flex-1" : "flex-1 pt-24 md:pt-28"}>{children}</main>
+
+      {showBackToTop ? (
+        <button
+          type="button"
+          onClick={scrollToTop}
+          aria-label="Back to top"
+          className="fixed bottom-6 right-4 z-40 flex h-12 w-12 items-center justify-center rounded-full border border-accent/25 bg-card/88 text-accent shadow-[0_18px_45px_rgba(0,0,0,0.3)] backdrop-blur-md transition-all duration-300 hover:border-accent/45 hover:bg-accent/12 hover:-translate-y-1 md:bottom-8 md:right-8"
+        >
+          <ArrowUp className="h-5 w-5" />
+        </button>
+      ) : null}
 
       <footer className="bg-card/60 border-t border-accent/15 mt-20">
         <div className="container py-12 md:py-16">

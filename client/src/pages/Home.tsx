@@ -1,6 +1,6 @@
 import PageState from "@/components/PageState";
 import { useMemorialContent } from "@/contexts/MemorialContentContext";
-import { ChevronDown } from "lucide-react";
+import { ArrowUpRight, ChevronDown } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Link } from "wouter";
 
@@ -16,32 +16,38 @@ const quickLinks = [
   {
     href: "/biography",
     title: "Biography",
-    description: "Discover his journey through early life, education, career, and spiritual growth.",
+    eyebrow: "His Story",
+    description: "Walk through the stages of his life, formation, calling, faith, and final legacy.",
   },
   {
     href: "/tributes",
     title: "Tributes",
-    description: "Read heartfelt messages and condolences from family, friends, and loved ones.",
+    eyebrow: "Shared Memories",
+    description: "Read the words of family, friends, and loved ones who continue to carry his memory.",
   },
   {
     href: "/gallery",
     title: "Gallery",
-    description: "Browse cherished photos from family, work, church, and life moments.",
+    eyebrow: "Visual Memory",
+    description: "Spend time with moments, faces, and scenes that remain part of his presence.",
   },
   {
     href: "/service-details",
     title: "Service Details",
-    description: "Information about the wake keep, burial, and service arrangements.",
+    eyebrow: "Gathering",
+    description: "Find the arrangements for coming together in honor, prayer, and remembrance.",
   },
   {
     href: "/legacy",
     title: "Legacy",
-    description: "His values of faith, service, and mentorship live on through us.",
+    eyebrow: "What Remains",
+    description: "Reflect on the values, service, and example that continue speaking after him.",
   },
   {
     href: "/family-message",
     title: "Family Message",
-    description: "A personal tribute from his children and family.",
+    eyebrow: "From Home",
+    description: "Read the words of those who knew him most closely and loved him most deeply.",
   },
 ];
 
@@ -171,11 +177,11 @@ export default function Home() {
               Continue Through His Story
             </p>
             <h2 className="text-3xl md:text-4xl font-serif font-bold text-foreground mb-4">
-              Explore the Life He Lived and the Memory He Leaves
+              Explore the Life He Lived and the Memory He Left
             </h2>
             <p className="text-sm sm:text-base md:text-lg text-muted-foreground">
               Each section of this memorial gathers a different part of his presence: his journey,
-              his service, the people he loved, and the legacy that remains with us.
+              his service, his loved ones, and the legacy that remains with us.
             </p>
           </div>
 
@@ -183,17 +189,33 @@ export default function Home() {
             {quickLinks.map((link, index) => (
               <Link key={link.href} href={link.href}>
                 <a
-                  className="card-memorial group cursor-pointer relative overflow-hidden"
+                  className="card-memorial group cursor-pointer relative overflow-hidden flex min-h-[18rem] flex-col justify-between"
                   style={{ animationDelay: `${index * 90}ms` }}
                 >
                   <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-transparent via-accent/70 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300" />
-                  <div className="h-24 bg-gradient-to-br from-accent/20 via-accent/5 to-transparent rounded-xl mb-6 transition-all duration-300 group-hover:from-accent/25 group-hover:via-accent/10" />
-                  <h3 className="text-2xl font-serif font-bold mb-3 group-hover:text-accent transition-all duration-300 ease-out">
-                    {link.title}
-                  </h3>
-                  <p className="text-muted-foreground group-hover:text-foreground transition-all duration-300 ease-out">
-                    {link.description}
-                  </p>
+
+                  <div>
+                    <div className="mb-6 flex items-start justify-between gap-4">
+                      <div className="inline-flex rounded-full border border-accent/20 bg-accent/8 px-3 py-1 text-[0.65rem] uppercase tracking-[0.32em] text-accent/90">
+                        {link.eyebrow}
+                      </div>
+                      <div className="flex h-10 w-10 items-center justify-center rounded-full border border-accent/20 bg-background/55 text-accent transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1">
+                        <ArrowUpRight className="h-4 w-4" />
+                      </div>
+                    </div>
+
+                    <h3 className="text-2xl font-serif font-bold mb-3 group-hover:text-accent transition-all duration-300 ease-out">
+                      {link.title}
+                    </h3>
+                    <p className="text-muted-foreground group-hover:text-foreground transition-all duration-300 ease-out">
+                      {link.description}
+                    </p>
+                  </div>
+
+                  <div className="mt-8 flex items-center justify-between border-t border-accent/10 pt-5 text-[0.7rem] uppercase tracking-[0.28em] text-muted-foreground">
+                    <span>Open Section</span>
+                    <span>{String(index + 1).padStart(2, "0")}</span>
+                  </div>
                 </a>
               </Link>
             ))}

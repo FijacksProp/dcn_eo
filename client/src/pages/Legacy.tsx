@@ -47,10 +47,15 @@ export default function Legacy() {
                   style={{ animationDelay: `${index * 100}ms` }}
                 >
                   <div className="flex items-start gap-4 mb-4">
-                    <div className="w-12 h-12 rounded-lg bg-accent bg-opacity-20 flex items-center justify-center flex-shrink-0">
-                      <Icon className="w-6 h-6 text-accent" />
+                    <div className="relative mt-1 flex h-14 w-14 flex-shrink-0 items-center justify-center">
+                      <div className="absolute inset-0 rounded-full border border-accent/18 bg-accent/10" />
+                      <div className="absolute inset-2 rounded-full border border-accent/12 bg-background/65" />
+                      <Icon className="relative z-10 w-6 h-6 text-accent" />
                     </div>
-                    <h3 className="text-2xl font-serif font-bold text-foreground">{value.title}</h3>
+                    <div>
+                      <p className="text-[0.65rem] uppercase tracking-[0.3em] text-accent/85 mb-2">Core Value</p>
+                      <h3 className="text-2xl font-serif font-bold text-foreground">{value.title}</h3>
+                    </div>
                   </div>
                   <p className="text-base text-muted-foreground leading-relaxed">{value.description}</p>
                 </div>

@@ -50,6 +50,7 @@ class MemorialProfileAdmin(admin.ModelAdmin):
 
 @admin.register(Tribute)
 class TributeAdmin(admin.ModelAdmin):
-    list_display = ("name", "relationship", "is_approved", "created_at")
-    list_filter = ("is_approved", "created_at")
+    list_display = ("name", "section", "relationship", "order", "is_approved", "created_at")
+    list_filter = ("section", "is_approved", "created_at")
+    list_editable = ("section", "order", "is_approved")
     search_fields = ("name", "relationship", "message")

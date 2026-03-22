@@ -134,18 +134,36 @@ class GalleryImage(TimestampedModel):
 
 
 class Tribute(TimestampedModel):
+    SECTION_FAMILY = "family"
+    SECTION_CHURCH = "church"
+    SECTION_FRIEND = "friend"
+    SECTION_RELATIVE = "relative"
+    SECTION_INSTITUTION = "institution"
+    SECTION_COMMUNITY = "community"
+
+    SECTION_CHOICES = [
+        (SECTION_FAMILY, "Family"),
+        (SECTION_CHURCH, "Church"),
+        (SECTION_FRIEND, "Friends"),
+        (SECTION_RELATIVE, "Relatives"),
+        (SECTION_INSTITUTION, "Institutions"),
+        (SECTION_COMMUNITY, "Community"),
+    ]
+
     profile = models.ForeignKey(
         MemorialProfile,
         on_delete=models.CASCADE,
         related_name="tributes",
     )
+    section = models.CharField(max_length=20, choices=SECTION_CHOICES, default=SECTION_FAMILY)
     name = models.CharField(max_length=120)
     relationship = models.CharField(max_length=120)
     message = models.TextField()
+    order = models.PositiveSmallIntegerField(default=0)
     is_approved = models.BooleanField(default=True)
 
     class Meta:
-        ordering = ["-created_at", "-id"]
+        ordering = ["section", "order", "name", "id"]
 
     def __str__(self):
         return f"{self.name} ({self.relationship})"
