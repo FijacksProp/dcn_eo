@@ -65,6 +65,7 @@ class MemorialProfileSerializer(serializers.ModelSerializer):
     family_message = FamilyMessageSerializer(read_only=True)
     gallery_images = GalleryImageSerializer(many=True, read_only=True)
     tributes = serializers.SerializerMethodField()
+    background_audio_url = serializers.SerializerMethodField()
 
     class Meta:
         model = MemorialProfile
@@ -91,3 +92,11 @@ class MemorialProfileSerializer(serializers.ModelSerializer):
     def get_tributes(self, obj):
         tributes = obj.tributes.filter(is_approved=True)
         return TributeSerializer(tributes, many=True).data
+
+    def get_background_audio_url(self, obj):
+        request = self.context.get("request")
+        if not obj.background_audio_url:
+            return ""
+        if request and obj.background_audio_url.startswith("/"):
+            return request.build_absolute_uri(obj.background_audio_url)
+        return obj.background_audio_url

@@ -1,10 +1,27 @@
-from django.http import JsonResponse
+from pathlib import Path
+
+from django.conf import settings
+from django.http import FileResponse, Http404, JsonResponse
 from rest_framework import generics
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from .models import MemorialProfile, Tribute
 from .serializers import MemorialProfileSerializer, TributeSerializer
+
+
+def background_audio_file(_request):
+    data_dir = Path(settings.BASE_DIR) / "data"
+    audio_files = sorted(
+        file_path
+        for file_path in data_dir.iterdir()
+        if file_path.is_file() and file_path.suffix.lower() in {".mp3", ".wav", ".m4a", ".ogg"}
+    ) if data_dir.exists() else []
+
+    if not audio_files:
+        raise Http404("No background audio file is available.")
+
+    return FileResponse(audio_files[0].open("rb"), content_type="audio/mpeg")
 
 
 def health_check(_request):
@@ -39,7 +56,7 @@ class MemorialProfileDetailView(APIView):
                 status=404,
             )
 
-        return Response(MemorialProfileSerializer(profile).data)
+        return Response(MemorialProfileSerializer(profile, context={"request": _request}).data)
 
 
 class TributeListView(generics.ListAPIView):

@@ -75,7 +75,7 @@ export default function Biography() {
             <div>
               <p className="text-[0.7rem] uppercase tracking-[0.32em] text-accent/85 mb-3">Words That Stayed With Him</p>
               <p className="text-lg md:text-2xl font-serif italic text-foreground leading-9">
-                "Ko si nkan to le tio ni ro."
+                "Ko si nkan to le ti ko ni ro."
               </p>
               <p className="text-sm md:text-base text-muted-foreground mt-3">
                 A resilient outlook that captured the way he encouraged people to face life with hope.

@@ -37,9 +37,7 @@ class Command(BaseCommand):
                     "https://d2xsxph8kpxj0f.cloudfront.net/310519663398889538/"
                     "nWuFVxyg3TzwFtsbnznaQm/5897848971068116109_527ec747.jpg"
                 ),
-                "background_audio_url": (
-                    "https://assets.mixkit.co/active_storage/sfx/2806/2806-preview.mp3"
-                ),
+                "background_audio_url": "/api/audio/background/",
             },
         )
 

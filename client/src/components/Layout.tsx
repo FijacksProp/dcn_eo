@@ -1,5 +1,5 @@
 import { useMemorialContent } from "@/contexts/MemorialContentContext";
-import { ArrowUp, Menu, Music, X } from "lucide-react";
+import { ArrowUp, Menu, Volume2, VolumeX, X } from "lucide-react";
 import { useEffect, useLayoutEffect, useState } from "react";
 import { Link, useLocation } from "wouter";
 
@@ -81,18 +81,26 @@ export default function Layout({ children }: LayoutProps) {
       const audio = new Audio(memorial.background_audio_url);
       audio.loop = true;
       audio.volume = 0.3;
+      audio.addEventListener("play", () => setIsMusicPlaying(true));
+      audio.addEventListener("pause", () => setIsMusicPlaying(false));
+      audio.addEventListener("ended", () => {
+        audio.currentTime = 0;
+        void audio.play();
+      });
       setAudioElement(audio);
-      void audio.play();
-      setIsMusicPlaying(true);
+      void audio.play().catch(() => {
+        setIsMusicPlaying(false);
+      });
       return;
     }
 
     if (isMusicPlaying) {
       audioElement.pause();
     } else {
-      void audioElement.play();
+      void audioElement.play().catch(() => {
+        setIsMusicPlaying(false);
+      });
     }
-    setIsMusicPlaying(!isMusicPlaying);
   };
 
   const scrollToTop = () => {
@@ -134,15 +142,28 @@ export default function Layout({ children }: LayoutProps) {
           <div className="flex items-center gap-2">
             <button
               onClick={toggleMusic}
-              className="p-2 rounded-lg hover:bg-accent/10 transition-all duration-300 ease-out disabled:opacity-50"
+              className={`inline-flex items-center gap-2 rounded-full border px-3 py-2 transition-all duration-300 ease-out disabled:opacity-50 ${
+                isMusicPlaying
+                  ? "border-accent/35 bg-accent/12 text-accent shadow-[0_10px_25px_rgba(212,165,116,0.18)]"
+                  : "border-accent/12 bg-card/50 text-muted-foreground hover:border-accent/25 hover:bg-accent/6"
+              }`}
               aria-label="Toggle background music"
+              aria-pressed={isMusicPlaying}
               disabled={!memorial?.background_audio_url}
             >
-              {isMusicPlaying ? (
-                <Music className="w-5 h-5 text-accent" />
-              ) : (
-                <Music className="w-5 h-5 text-muted-foreground" />
-              )}
+              <span className="relative flex h-5 w-5 items-center justify-center">
+                {isMusicPlaying ? (
+                  <>
+                    <span className="absolute h-2.5 w-2.5 rounded-full bg-accent/25 pulse-soft" />
+                    <Volume2 className="relative z-10 h-5 w-5" />
+                  </>
+                ) : (
+                  <VolumeX className="h-5 w-5" />
+                )}
+              </span>
+              <span className="hidden text-[0.68rem] font-medium uppercase tracking-[0.24em] sm:inline">
+                {isMusicPlaying ? "Sound On" : "Sound Off"}
+              </span>
             </button>
 
             <button
