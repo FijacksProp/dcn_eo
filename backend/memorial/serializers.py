@@ -1,3 +1,7 @@
+from pathlib import Path
+
+from django.conf import settings
+from django.urls import reverse
 from rest_framework import serializers
 
 from .models import (
@@ -95,8 +99,22 @@ class MemorialProfileSerializer(serializers.ModelSerializer):
 
     def get_background_audio_url(self, obj):
         request = self.context.get("request")
+        data_dir = Path(settings.BASE_DIR) / "data"
+        has_local_audio = data_dir.exists() and any(
+            file_path.is_file() and file_path.suffix.lower() in {".mp3", ".wav", ".m4a", ".ogg"}
+            for file_path in data_dir.iterdir()
+        )
+
+        if has_local_audio:
+            local_audio_path = reverse("background-audio")
+            if request:
+                return request.build_absolute_uri(local_audio_path)
+            return local_audio_path
+
         if not obj.background_audio_url:
             return ""
+
         if request and obj.background_audio_url.startswith("/"):
             return request.build_absolute_uri(obj.background_audio_url)
+
         return obj.background_audio_url
