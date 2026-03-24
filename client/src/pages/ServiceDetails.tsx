@@ -1,6 +1,46 @@
 import PageState from "@/components/PageState";
 import { useMemorialContent } from "@/contexts/MemorialContentContext";
-import { Calendar, Clock, MapPin, Sparkles } from "lucide-react";
+import { Calendar, Clock, MapPin, ScrollText, Sparkles } from "lucide-react";
+
+const orderOfServiceMap: Record<
+  string,
+  {
+    heading: string;
+    items: string[];
+  }
+> = {
+  wake: {
+    heading: "Order of Service - Wake Keep",
+    items: [
+      "Opening Prayer",
+      "Praise and Worship",
+      "Scripture Reading - Rev. 7:9-17 (Gideon Olugbemi)",
+      "Congregational Hymn - All Must Be Well",
+      "Scripture Reading - 1 Cor. 15:51-58 (Joshua Olugbemi)",
+      "Tributes",
+      "Choir Ministration",
+      "Scripture Reading - John 14:1-6 (Emmanuel Olugbemi)",
+      "Exhortation",
+      "Special Prayer for the Family",
+      "Congregational Hymn - In Christ Alone",
+      "Announcement",
+      "Congregational Hymn - As We Journey Through the Land",
+      "Vote of Thanks / Special Number",
+      "Prayer and Benediction",
+    ],
+  },
+  burial: {
+    heading: "Order of Service - Burial",
+    items: [
+      "Opening Prayer",
+      "Hymn/Orin - Jerusalem on High",
+      "Short Charge",
+      "Interment",
+      "Farewell Hymn/Orin Idagbere - Till We Meet Again",
+      "Prayer and Benediction / Adura ati Ore Ofe",
+    ],
+  },
+};
 
 function getEventHeadingIcon(eventType: string) {
   if (eventType === "wake") {
@@ -54,6 +94,7 @@ export default function ServiceDetails() {
         {memorial.service_events.map((event, index) => {
           const HeadingIcon = getEventHeadingIcon(event.event_type);
           const eventDate = new Date(event.start_at);
+          const orderOfService = orderOfServiceMap[event.event_type];
 
           return (
             <section
@@ -126,6 +167,43 @@ export default function ServiceDetails() {
                   <>
                     <div className="divider-gold" />
                     <p className="text-base text-foreground leading-relaxed italic">{event.description}</p>
+                  </>
+                ) : null}
+
+                {orderOfService ? (
+                  <>
+                    <div className="divider-gold" />
+                    <div className="rounded-[1.75rem] border border-accent/12 bg-background/45 px-5 py-5 md:px-6 md:py-6">
+                      <div className="mb-6 flex items-start gap-4">
+                        <div className="relative flex h-12 w-12 shrink-0 items-center justify-center">
+                          <div className="absolute inset-0 rounded-full border border-accent/18 bg-accent/10" />
+                          <div className="absolute inset-2 rounded-full border border-accent/12 bg-background/70" />
+                          <ScrollText className="relative z-10 h-5 w-5 text-accent" />
+                        </div>
+                        <div>
+                          <p className="text-[0.65rem] uppercase tracking-[0.32em] text-accent/85 mb-2">
+                            Ceremony Flow
+                          </p>
+                          <h3 className="text-2xl md:text-3xl font-serif font-bold text-foreground">
+                            {orderOfService.heading}
+                          </h3>
+                        </div>
+                      </div>
+
+                      <div className="space-y-3">
+                        {orderOfService.items.map((item, itemIndex) => (
+                          <div
+                            key={`${event.id}-${itemIndex}`}
+                            className="flex items-start gap-4 rounded-2xl border border-accent/10 bg-card/55 px-4 py-4"
+                          >
+                            <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-accent/18 bg-accent/10 text-sm font-medium text-accent">
+                              {itemIndex + 1}
+                            </div>
+                            <p className="text-sm md:text-base text-foreground/92 leading-7">{item}</p>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
                   </>
                 ) : null}
               </div>
